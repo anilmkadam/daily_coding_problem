@@ -4,17 +4,27 @@ using namespace std;
 
 int main() {
     vector<int> input;
+    vector<long int> product;
     int input_size;
     cin >> input_size;
     int temp;
-    long int total_product = 1;
-    for(int i = 0; i < input_size; i++) {
+    // first iteration calculating aux product
+    long int aux_product = 1;
+    for(int i = 0; i < input_size; ++i) {
         cin >> temp;
         input.push_back(temp);
-        total_product *= temp;
+        product.push_back(aux_product);
+        aux_product *= temp;
     }
-    for(int i = 0; i < input.size(); i++) {
-        cout << total_product / input[i] << " ";
+
+    //second iteration calculating final output
+    aux_product = 1;
+    for(int i = input_size - 1; i >= 0; --i) {
+        product[i] = product[i] * aux_product;
+        aux_product *= input[i];
     }
+    //printing the output
+    for (auto it = product.begin(); it != product.end(); ++it) 
+        cout << *it << " ";
     return 0;
 }
