@@ -15,10 +15,28 @@ int decodeHelper(string data, int k) {
     return result;
 }
 
+int decodeHelperDP(string data, int k, int memo[]) {
+    if(k == 0 || k == 1)
+        return 1;
+    int start = data.length() - k;
+    if(data[start] == '0')
+        return 0;
+    if(memo[k] != 0)
+        return memo[k];
+    int result = decodeHelperDP(data, k-1, memo);
+    if(k >=2 && (data.substr(start, 2)) <= "26")
+        result += decodeHelperDP(data, k-2,memo);
+    memo[k] = result;
+    return result;
+}
+
 int decode(string msg) {
-    return decodeHelper(msg, msg.length());
+    // return decodeHelper(msg, msg.length());
+    // By using dynamic programming
+    int previous_state[msg.length()];
+    return decodeHelperDP(msg, msg.length(), previous_state);
 }
 int main() {
-    string msg = "11111";
+    string msg = "1";
     cout << decode(msg) << endl;
 }
