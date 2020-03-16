@@ -16,14 +16,16 @@ class BinaryTree {
 
 bool uniValTreeHelper(BinaryTree* root, int *counter) {
     if(root == NULL)
-        return false;
-    if(root -> left == NULL && root -> right == NULL) {
-        (*counter)++;
         return true;
-    }
-    if(uniValTreeHelper(root -> left, counter) && uniValTreeHelper(root -> right, counter)) {
-        if(root-> left -> data == root -> right -> data)
-            (*counter)++;
+    bool is_left_unival = uniValTreeHelper(root -> left, counter);
+    bool is_right_unival = uniValTreeHelper(root -> right, counter);
+
+    if(is_left_unival && is_right_unival) {
+        if(root-> left != NULL && root -> data != root -> left -> data)
+            return false;
+        if(root-> right != NULL && root -> data != root -> right -> data)
+            return false;
+        (*counter)++;
         return true;
     }
     return false;
