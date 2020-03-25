@@ -20,7 +20,7 @@ class Logger {
         ll logsSize = getSize(); 
 
         ll logRecordNum = logsSize - i;
-        if(logRecordNum <= 0 || logRecordNum >= logsSize)
+        if(logRecordNum <= 0)
             return "No logs found\n";
         return logs[logRecordNum];
     }
@@ -43,6 +43,6 @@ int main() {
     logging.record("qwertyui13");
     logging.record("qwertyui14");
     logging.record("qwertyui15");
-    
+
     cout << logging.getLast(15) << endl;
 }
