@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #define ll long long
+#define N 10
 using namespace std;
 
 class Logger {
@@ -13,14 +14,20 @@ class Logger {
 
     public:
     void record(string logMsg) {
-        logs.push_back(logMsg);
+        int logSize = getSize();
+        if(N == logSize) {
+            logs.erase(logs.begin());
+            logs.push_back(logMsg);
+        }
+        else
+            logs.push_back(logMsg);
     }
 
     string getLast(ll i) {
         ll logsSize = getSize(); 
 
         ll logRecordNum = logsSize - i;
-        if(logRecordNum <= 0)
+        if(logRecordNum < 0 || i > N)
             return "No logs found\n";
         return logs[logRecordNum];
     }
@@ -44,5 +51,5 @@ int main() {
     logging.record("qwertyui14");
     logging.record("qwertyui15");
 
-    cout << logging.getLast(15) << endl;
+    cout << logging.getLast(5) << endl;
 }
